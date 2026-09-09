@@ -34,13 +34,13 @@ The grammar is based on the [official language grammar](https://kotlinlang.org/d
 
 The checked-in generated parser and N-API binding are qualified on Node.js 24 with `tree-sitter@0.25.1`. Installing the package runs only `node-gyp-build`; parser generation remains an explicit development command and is not part of consumer installation.
 
-Semantifold consumes the qualified source revision through an immutable HTTPS archive without publishing a forked npm package:
+Semantifold consumes the qualified source through an immutable HTTPS Git dependency at the reserved source-only tag. npm records the normal Git dependency resolution in its lockfile without requiring a forked npm package:
 
 ```json
 {
   "dependencies": {
     "tree-sitter": "0.25.1",
-    "tree-sitter-kotlin": "https://github.com/kaspernj/tree-sitter-kotlin/archive/<40-character-commit-sha>.tar.gz"
+    "tree-sitter-kotlin": "git+https://github.com/kaspernj/tree-sitter-kotlin.git#v0.4.0-semantifold.1"
   }
 }
 ```

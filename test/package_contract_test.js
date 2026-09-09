@@ -84,7 +84,7 @@ describe("Node package contract", () => {
     }
   });
 
-  it("keeps Semantifold source tags outside every inherited publication workflow", () => {
+  it("keeps Semantifold source tags outside publication and documents tagged Git consumption", () => {
     for (const relativePath of publicationWorkflows) {
       const workflow = readFileSync(path.join(root, relativePath), "utf8");
 
@@ -92,8 +92,12 @@ describe("Node package contract", () => {
     }
     assert.match(
       readme,
-      /https:\/\/github\.com\/kaspernj\/tree-sitter-kotlin\/archive\/<40-character-commit-sha>\.tar\.gz/u,
+      /"tree-sitter-kotlin": "git\+https:\/\/github\.com\/kaspernj\/tree-sitter-kotlin\.git#v0\.4\.0-semantifold\.1"/u,
     );
+    assert.doesNotMatch(readme, /\/archive\//u);
+    assert.doesNotMatch(readme, /\.tar\.gz/u);
+    assert.doesNotMatch(readme, /\.tgz/u);
+    assert.doesNotMatch(readme, /file:/iu);
   });
 
   it("cold-installs and reinstalls the packed binding with no parser CLI", async () => {
